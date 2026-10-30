@@ -3,7 +3,7 @@ FROM ghcr.io/actions/actions-runner:latest
 USER root
 
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends curl ca-certificates gnupg unzip \
+	&& apt-get install -y --no-install-recommends curl ca-certificates gnupg unzip libatomic1 \
 	&& curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 	&& apt-get install -y --no-install-recommends nodejs \
 	&& curl -fsSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o /tmp/awscliv2.zip \
