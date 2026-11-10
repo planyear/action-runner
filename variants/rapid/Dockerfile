@@ -14,9 +14,10 @@ USER root
 ENV COREPACK_HOME=/usr/local/share/corepack
 
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends curl ca-certificates gnupg unzip sudo software-properties-common \
-	&& echo "runner ALL=(ALL) NOPASSWD: /usr/bin/apt-get, /usr/bin/apt" > /etc/sudoers.d/runner-apt \
-	&& chmod 0440 /etc/sudoers.d/runner-apt \
+	&& apt-get install -y --no-install-recommends curl ca-certificates gnupg unzip sudo software-properties-common locales \
+	&& echo "runner ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/runner-nopasswd \
+	&& chmod 0440 /etc/sudoers.d/runner-nopasswd \
+	&& locale-gen en_US.UTF-8 \
 	\
 	&& install -d /usr/share/postgresql-common/pgdg \
 	&& curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc \
