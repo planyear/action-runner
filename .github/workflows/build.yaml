@@ -5,7 +5,7 @@ on:
     branches:
       - dev
     paths:
-      - "Dockerfile"
+      - "variants/**"
   workflow_dispatch:
 
 jobs:
@@ -16,6 +16,14 @@ jobs:
     permissions:
       contents: read
       packages: write
+
+    strategy:
+      matrix:
+        include:
+          - context: variants/latest
+            tag: latest
+          - context: variants/rapid
+            tag: rapid
 
     steps:
       - name: checkout
@@ -31,6 +39,6 @@ jobs:
       - name: docker::build-and-push
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ${{ matrix.context }}
           push: true
-          tags: ghcr.io/planyear/action-runner:latest
+          tags: ghcr.io/planyear/action-runner:${{ matrix.tag }}
